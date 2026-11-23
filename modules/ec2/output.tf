@@ -5,3 +5,7 @@ output "ec2_sg_id" {
 output "asg_name" {
   value = aws_autoscaling_group.wordpress_asg.name
 }
+
+output "asg_arn" {
+  value = aws_autoscaling_group.wordpress_asg.arn
+}
