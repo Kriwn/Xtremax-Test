@@ -3,8 +3,8 @@
 # by templatefile() in main.tf.
 set -euo pipefail
 
-# 1. Install Apache + PHP (Amazon Linux 2023)
-dnf install -y httpd php php-fpm php-mysqlnd php-gd php-mbstring php-xml
+# 1. Install Apache + PHP (Amazon Linux 2023), and tar to unpack WordPress
+dnf install -y httpd php php-fpm php-mysqlnd php-gd php-mbstring php-xml tar
 
 # 2. Install WordPress
 curl -fsSL https://wordpress.org/latest.tar.gz -o /tmp/wordpress.tar.gz

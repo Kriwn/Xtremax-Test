@@ -13,9 +13,9 @@ output "rds_sg_id" {
 }
 
 output "rds_port" {
-  value = aws_db_instance.mysql.port
+  value = aws_db_instance.mysql_school.port
 }
 
 output "rds_database_name" {
-  value = aws_db_instance.mysql.db_name
+  value = aws_db_instance.mysql_school.db_name
 }

@@ -1,7 +1,11 @@
 variable "image_id" {
-  description = "The AMI ID to use for the instance (null = latest Amazon Linux 2023)"
+  description = "Amazon Linux 2023 AMI ID (user_data.sh uses dnf)"
   type        = string
-  default     = null
+
+  validation {
+    condition     = startswith(var.image_id, "ami-")
+    error_message = "image_id must be an AMI ID starting with ami-."
+  }
 }
 
 variable "instance_type" {
@@ -23,6 +27,11 @@ variable "subnet_ids" {
 variable "vpc_id" {
   type        = string
   description = "The ID of the VPC"
+}
+
+variable "vpc_cidr" {
+  type        = string
+  description = "VPC CIDR; EC2 may reach MySQL (3306) only inside it"
 }
 
 variable "sg_alb_id" {

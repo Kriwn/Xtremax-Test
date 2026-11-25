@@ -1,0 +1,1318 @@
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+Terraform will perform the following actions:
+
+  # module.alb.aws_lb.wordpress_alb will be created
+  + resource "aws_lb" "wordpress_alb" {
+      + arn                                                          = (known after apply)
+      + arn_suffix                                                   = (known after apply)
+      + client_keep_alive                                            = 3600
+      + desync_mitigation_mode                                       = "defensive"
+      + dns_name                                                     = (known after apply)
+      + drop_invalid_header_fields                                   = true
+      + enable_deletion_protection                                   = false
+      + enable_http2                                                 = true
+      + enable_tls_version_and_cipher_suite_headers                  = false
+      + enable_waf_fail_open                                         = false
+      + enable_xff_client_port                                       = false
+      + enable_zonal_shift                                           = false
+      + enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      + id                                                           = (known after apply)
+      + idle_timeout                                                 = 60
+      + internal                                                     = false
+      + ip_address_type                                              = (known after apply)
+      + load_balancer_type                                           = "application"
+      + name                                                         = "wordpress-alb"
+      + name_prefix                                                  = (known after apply)
+      + preserve_host_header                                         = false
+      + security_groups                                              = (known after apply)
+      + subnets                                                      = (known after apply)
+      + tags                                                         = {
+          + "Name" = "wordpress-alb"
+        }
+      + tags_all                                                     = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "wordpress-alb"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                                                       = (known after apply)
+      + xff_header_processing_mode                                   = "append"
+      + zone_id                                                      = (known after apply)
+
+      + subnet_mapping (known after apply)
+    }
+
+  # module.alb.aws_lb_listener.wordpress_https will be created
+  + resource "aws_lb_listener" "wordpress_https" {
+      + arn                                                                   = (known after apply)
+      + certificate_arn                                                       = "arn:aws:acm:ap-southeast-1:111111111111:certificate/00000000-0000-0000-0000-000000000000"
+      + id                                                                    = (known after apply)
+      + load_balancer_arn                                                     = (known after apply)
+      + port                                                                  = 443
+      + protocol                                                              = "HTTPS"
+      + routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      + routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      + routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      + routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      + routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      + routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      + routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      + routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      + routing_http_response_access_control_max_age_header_value             = (known after apply)
+      + routing_http_response_content_security_policy_header_value            = (known after apply)
+      + routing_http_response_server_enabled                                  = (known after apply)
+      + routing_http_response_strict_transport_security_header_value          = (known after apply)
+      + routing_http_response_x_content_type_options_header_value             = (known after apply)
+      + routing_http_response_x_frame_options_header_value                    = (known after apply)
+      + ssl_policy                                                            = "ELBSecurityPolicy-TLS13-1-2-Res-PQ-2025-09"
+      + tags_all                                                              = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "school-wordpress"
+        }
+      + tcp_idle_timeout_seconds                                              = (known after apply)
+
+      + default_action {
+          + order            = (known after apply)
+          + target_group_arn = (known after apply)
+          + type             = "forward"
+        }
+
+      + mutual_authentication (known after apply)
+    }
+
+  # module.alb.aws_lb_target_group.wordpress_target_group will be created
+  + resource "aws_lb_target_group" "wordpress_target_group" {
+      + arn                                = (known after apply)
+      + arn_suffix                         = (known after apply)
+      + connection_termination             = (known after apply)
+      + deregistration_delay               = "300"
+      + id                                 = (known after apply)
+      + ip_address_type                    = (known after apply)
+      + lambda_multi_value_headers_enabled = false
+      + load_balancer_arns                 = (known after apply)
+      + load_balancing_algorithm_type      = (known after apply)
+      + load_balancing_anomaly_mitigation  = (known after apply)
+      + load_balancing_cross_zone_enabled  = (known after apply)
+      + name                               = "wordpress-target-group"
+      + name_prefix                        = (known after apply)
+      + port                               = 80
+      + preserve_client_ip                 = (known after apply)
+      + protocol                           = "HTTP"
+      + protocol_version                   = (known after apply)
+      + proxy_protocol_v2                  = false
+      + slow_start                         = 0
+      + tags                               = {
+          + "Name" = "wordpress-target-group"
+        }
+      + tags_all                           = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "wordpress-target-group"
+          + "Project"   = "school-wordpress"
+        }
+      + target_type                        = "instance"
+      + vpc_id                             = (known after apply)
+
+      + health_check {
+          + enabled             = true
+          + healthy_threshold   = 2
+          + interval            = 30
+          + matcher             = "200-399"
+          + path                = "/"
+          + port                = "traffic-port"
+          + protocol            = "HTTP"
+          + timeout             = 5
+          + unhealthy_threshold = 2
+        }
+
+      + stickiness (known after apply)
+
+      + target_failover (known after apply)
+
+      + target_group_health (known after apply)
+
+      + target_health_state (known after apply)
+    }
+
+  # module.alb.aws_security_group.alb_sg will be created
+  + resource "aws_security_group" "alb_sg" {
+      + arn                    = (known after apply)
+      + description            = "Security group for the WordPress ALB"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "10.0.0.0/16",
+                ]
+              + description      = "HTTP to EC2"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "HTTPS from CloudFront"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = [
+                  + "pl-31a34658",
+                ]
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+        ]
+      + name                   = "wordpress-alb-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "alb-sg"
+        }
+      + tags_all               = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "alb-sg"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.cloudfront.aws_cloudfront_distribution.wordpress will be created
+  + resource "aws_cloudfront_distribution" "wordpress" {
+      + aliases                         = [
+          + "school.example.com",
+        ]
+      + arn                             = (known after apply)
+      + caller_reference                = (known after apply)
+      + comment                         = "WordPress school website"
+      + continuous_deployment_policy_id = (known after apply)
+      + domain_name                     = (known after apply)
+      + enabled                         = true
+      + etag                            = (known after apply)
+      + hosted_zone_id                  = (known after apply)
+      + http_version                    = "http2and3"
+      + id                              = (known after apply)
+      + in_progress_validation_batches  = (known after apply)
+      + is_ipv6_enabled                 = true
+      + last_modified_time              = (known after apply)
+      + price_class                     = "PriceClass_200"
+      + retain_on_delete                = false
+      + staging                         = false
+      + status                          = (known after apply)
+      + tags                            = {
+          + "Name" = "wordpress-cloudfront"
+        }
+      + tags_all                        = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "wordpress-cloudfront"
+          + "Project"   = "school-wordpress"
+        }
+      + trusted_key_groups              = (known after apply)
+      + trusted_signers                 = (known after apply)
+      + wait_for_deployment             = true
+
+      + default_cache_behavior {
+          + allowed_methods          = [
+              + "DELETE",
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+              + "PATCH",
+              + "POST",
+              + "PUT",
+            ]
+          + cache_policy_id          = "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+          + cached_methods           = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress                 = true
+          + default_ttl              = (known after apply)
+          + max_ttl                  = (known after apply)
+          + min_ttl                  = 0
+          + origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
+          + target_origin_id         = "wordpress-alb"
+          + trusted_key_groups       = (known after apply)
+          + trusted_signers          = (known after apply)
+          + viewer_protocol_policy   = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+
+      + ordered_cache_behavior {
+          + allowed_methods          = [
+              + "GET",
+              + "HEAD",
+              + "OPTIONS",
+            ]
+          + cache_policy_id          = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+          + cached_methods           = [
+              + "GET",
+              + "HEAD",
+            ]
+          + compress                 = true
+          + default_ttl              = (known after apply)
+          + max_ttl                  = (known after apply)
+          + min_ttl                  = 0
+          + origin_request_policy_id = "216adef6-5c7f-47e4-b989-5492eafa07d3"
+          + path_pattern             = "/wp-content/*"
+          + target_origin_id         = "wordpress-alb"
+          + viewer_protocol_policy   = "redirect-to-https"
+
+          + grpc_config (known after apply)
+        }
+
+      + origin {
+          + connection_attempts      = 3
+          + connection_timeout       = 10
+          + domain_name              = (known after apply)
+          + origin_id                = "wordpress-alb"
+            # (2 unchanged attributes hidden)
+
+          + custom_origin_config {
+              + http_port                = 80
+              + https_port               = 443
+              + origin_keepalive_timeout = 5
+              + origin_protocol_policy   = "https-only"
+              + origin_read_timeout      = 30
+              + origin_ssl_protocols     = [
+                  + "TLSv1.2",
+                ]
+            }
+        }
+
+      + restrictions {
+          + geo_restriction {
+              + locations        = (known after apply)
+              + restriction_type = "none"
+            }
+        }
+
+      + viewer_certificate {
+          + acm_certificate_arn      = "arn:aws:acm:us-east-1:111111111111:certificate/00000000-0000-0000-0000-000000000000"
+          + minimum_protocol_version = "TLSv1.2_2021"
+          + ssl_support_method       = "sni-only"
+        }
+    }
+
+  # module.ec2.aws_autoscaling_group.wordpress_asg will be created
+  + resource "aws_autoscaling_group" "wordpress_asg" {
+      + arn                              = (known after apply)
+      + availability_zones               = (known after apply)
+      + default_cooldown                 = (known after apply)
+      + desired_capacity                 = (known after apply)
+      + force_delete                     = false
+      + force_delete_warm_pool           = false
+      + health_check_grace_period        = 300
+      + health_check_type                = "ELB"
+      + id                               = (known after apply)
+      + ignore_failed_scaling_activities = false
+      + load_balancers                   = (known after apply)
+      + max_size                         = 4
+      + metrics_granularity              = "1Minute"
+      + min_size                         = 1
+      + name                             = "wordpress-asg"
+      + name_prefix                      = (known after apply)
+      + predicted_capacity               = (known after apply)
+      + protect_from_scale_in            = false
+      + service_linked_role_arn          = (known after apply)
+      + target_group_arns                = (known after apply)
+      + vpc_zone_identifier              = (known after apply)
+      + wait_for_capacity_timeout        = "10m"
+      + warm_pool_size                   = (known after apply)
+
+      + availability_zone_distribution (known after apply)
+
+      + capacity_reservation_specification (known after apply)
+
+      + launch_template {
+          + id      = (known after apply)
+          + name    = (known after apply)
+          + version = (known after apply)
+        }
+
+      + mixed_instances_policy (known after apply)
+
+      + tag {
+          + key                 = "Name"
+          + propagate_at_launch = true
+          + value               = "wordpress-instance"
+        }
+
+      + traffic_source (known after apply)
+    }
+
+  # module.ec2.aws_autoscaling_policy.scale_down will be created
+  + resource "aws_autoscaling_policy" "scale_down" {
+      + adjustment_type         = "ChangeInCapacity"
+      + arn                     = (known after apply)
+      + autoscaling_group_name  = "wordpress-asg"
+      + cooldown                = 300
+      + enabled                 = true
+      + id                      = (known after apply)
+      + metric_aggregation_type = (known after apply)
+      + name                    = "scale-down"
+      + policy_type             = "SimpleScaling"
+      + scaling_adjustment      = -1
+    }
+
+  # module.ec2.aws_autoscaling_policy.scale_up will be created
+  + resource "aws_autoscaling_policy" "scale_up" {
+      + adjustment_type         = "ChangeInCapacity"
+      + arn                     = (known after apply)
+      + autoscaling_group_name  = "wordpress-asg"
+      + cooldown                = 300
+      + enabled                 = true
+      + id                      = (known after apply)
+      + metric_aggregation_type = (known after apply)
+      + name                    = "scale-up"
+      + policy_type             = "SimpleScaling"
+      + scaling_adjustment      = 1
+    }
+
+  # module.ec2.aws_cloudwatch_metric_alarm.scale_down_alarm will be created
+  + resource "aws_cloudwatch_metric_alarm" "scale_down_alarm" {
+      + actions_enabled                       = true
+      + alarm_actions                         = (known after apply)
+      + alarm_description                     = "Scale down if CPU < 40%"
+      + alarm_name                            = "scale-down-alarm"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "LessThanThreshold"
+      + datapoints_to_alarm                   = 30
+      + dimensions                            = {
+          + "AutoScalingGroupName" = "wordpress-asg"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 30
+      + id                                    = (known after apply)
+      + metric_name                           = "CPUUtilization"
+      + namespace                             = "AWS/EC2"
+      + period                                = 60
+      + statistic                             = "Average"
+      + tags_all                              = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "school-wordpress"
+        }
+      + threshold                             = 40
+      + treat_missing_data                    = "missing"
+    }
+
+  # module.ec2.aws_cloudwatch_metric_alarm.scale_up_alarm will be created
+  + resource "aws_cloudwatch_metric_alarm" "scale_up_alarm" {
+      + actions_enabled                       = true
+      + alarm_actions                         = (known after apply)
+      + alarm_description                     = "Scale up if CPU > 80%"
+      + alarm_name                            = "scale-up-alarm"
+      + arn                                   = (known after apply)
+      + comparison_operator                   = "GreaterThanThreshold"
+      + datapoints_to_alarm                   = 30
+      + dimensions                            = {
+          + "AutoScalingGroupName" = "wordpress-asg"
+        }
+      + evaluate_low_sample_count_percentiles = (known after apply)
+      + evaluation_periods                    = 30
+      + id                                    = (known after apply)
+      + metric_name                           = "CPUUtilization"
+      + namespace                             = "AWS/EC2"
+      + period                                = 60
+      + statistic                             = "Average"
+      + tags_all                              = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "school-wordpress"
+        }
+      + threshold                             = 80
+      + treat_missing_data                    = "missing"
+    }
+
+  # module.ec2.aws_launch_template.wordpress will be created
+  + resource "aws_launch_template" "wordpress" {
+      + arn             = (known after apply)
+      + default_version = (known after apply)
+      + id              = (known after apply)
+      + image_id        = "ami-0123456789abcdef0"
+      + instance_type   = "t3.micro"
+      + latest_version  = (known after apply)
+      + name            = (known after apply)
+      + name_prefix     = "wordpress-"
+      + tags_all        = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "school-wordpress"
+        }
+      + user_data       = (known after apply)
+
+      + block_device_mappings {
+          + device_name = "/dev/xvda"
+
+          + ebs {
+              + encrypted                  = "true"
+              + iops                       = (known after apply)
+              + throughput                 = (known after apply)
+              + volume_initialization_rate = (known after apply)
+              + volume_size                = 20
+              + volume_type                = "gp3"
+            }
+        }
+
+      + iam_instance_profile {
+          + name = "wordpress-ec2-profile"
+        }
+
+      + metadata_options {
+          + http_endpoint               = (known after apply)
+          + http_protocol_ipv6          = (known after apply)
+          + http_put_response_hop_limit = (known after apply)
+          + http_tokens                 = "required"
+          + instance_metadata_tags      = (known after apply)
+        }
+
+      + monitoring {
+          + enabled = true
+        }
+
+      + network_interfaces {
+          + associate_public_ip_address = "false"
+          + device_index                = 0
+          + security_groups             = (known after apply)
+        }
+    }
+
+  # module.ec2.aws_security_group.wordpress_ec2_sg will be created
+  + resource "aws_security_group" "wordpress_ec2_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow HTTP from ALB"
+      + egress                 = [
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTP out: package mirrors"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 80
+            },
+          + {
+              + cidr_blocks      = [
+                  + "0.0.0.0/0",
+                ]
+              + description      = "HTTPS out: packages, WordPress, Secrets Manager"
+              + from_port        = 443
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 443
+            },
+          + {
+              + cidr_blocks      = [
+                  + "10.0.0.0/16",
+                ]
+              + description      = "MySQL to RDS inside the VPC"
+              + from_port        = 3306
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = []
+              + self             = false
+              + to_port          = 3306
+            },
+        ]
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "HTTP from ALB"
+              + from_port        = 80
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 80
+            },
+        ]
+      + name                   = "wordpress-ec2-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags_all               = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.iam.aws_iam_instance_profile.wordpress will be created
+  + resource "aws_iam_instance_profile" "wordpress" {
+      + arn         = (known after apply)
+      + create_date = (known after apply)
+      + id          = (known after apply)
+      + name        = "wordpress-ec2-profile"
+      + name_prefix = (known after apply)
+      + path        = "/"
+      + role        = "wordpress-ec2-role"
+      + tags_all    = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "school-wordpress"
+        }
+      + unique_id   = (known after apply)
+    }
+
+  # module.iam.aws_iam_role.ec2_role will be created
+  + resource "aws_iam_role" "ec2_role" {
+      + arn                   = (known after apply)
+      + assume_role_policy    = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "sts:AssumeRole"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "ec2.amazonaws.com"
+                        }
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + create_date           = (known after apply)
+      + force_detach_policies = false
+      + id                    = (known after apply)
+      + managed_policy_arns   = (known after apply)
+      + max_session_duration  = 3600
+      + name                  = "wordpress-ec2-role"
+      + name_prefix           = (known after apply)
+      + path                  = "/"
+      + tags_all              = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "school-wordpress"
+        }
+      + unique_id             = (known after apply)
+
+      + inline_policy (known after apply)
+    }
+
+  # module.iam.aws_iam_role_policy.read_db_secret will be created
+  + resource "aws_iam_role_policy" "read_db_secret" {
+      + id          = (known after apply)
+      + name        = "read-db-secret"
+      + name_prefix = (known after apply)
+      + policy      = (known after apply)
+      + role        = (known after apply)
+    }
+
+  # module.iam.aws_iam_role_policy_attachment.ssm_core will be created
+  + resource "aws_iam_role_policy_attachment" "ssm_core" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+      + role       = "wordpress-ec2-role"
+    }
+
+  # module.rds.aws_db_instance.mysql_school will be created
+  + resource "aws_db_instance" "mysql_school" {
+      + address                               = (known after apply)
+      + allocated_storage                     = 20
+      + apply_immediately                     = false
+      + arn                                   = (known after apply)
+      + auto_minor_version_upgrade            = true
+      + availability_zone                     = (known after apply)
+      + backup_retention_period               = 7
+      + backup_target                         = (known after apply)
+      + backup_window                         = (known after apply)
+      + ca_cert_identifier                    = (known after apply)
+      + character_set_name                    = (known after apply)
+      + copy_tags_to_snapshot                 = false
+      + database_insights_mode                = (known after apply)
+      + db_name                               = "wordpress"
+      + db_subnet_group_name                  = "school-db-subnet-group"
+      + dedicated_log_volume                  = false
+      + delete_automated_backups              = true
+      + domain_fqdn                           = (known after apply)
+      + endpoint                              = (known after apply)
+      + engine                                = "mysql"
+      + engine_lifecycle_support              = (known after apply)
+      + engine_version                        = "8.0"
+      + engine_version_actual                 = (known after apply)
+      + hosted_zone_id                        = (known after apply)
+      + id                                    = (known after apply)
+      + identifier                            = "mysql-school"
+      + identifier_prefix                     = (known after apply)
+      + instance_class                        = "db.t3.micro"
+      + iops                                  = (known after apply)
+      + kms_key_id                            = (known after apply)
+      + latest_restorable_time                = (known after apply)
+      + license_model                         = (known after apply)
+      + listener_endpoint                     = (known after apply)
+      + maintenance_window                    = (known after apply)
+      + manage_master_user_password           = true
+      + master_user_secret                    = (known after apply)
+      + master_user_secret_kms_key_id         = (known after apply)
+      + monitoring_interval                   = 0
+      + monitoring_role_arn                   = (known after apply)
+      + multi_az                              = false
+      + nchar_character_set_name              = (known after apply)
+      + network_type                          = (known after apply)
+      + option_group_name                     = (known after apply)
+      + parameter_group_name                  = (known after apply)
+      + password_wo                           = (write-only attribute)
+      + performance_insights_enabled          = false
+      + performance_insights_kms_key_id       = (known after apply)
+      + performance_insights_retention_period = (known after apply)
+      + port                                  = 3306
+      + publicly_accessible                   = false
+      + replica_mode                          = (known after apply)
+      + replicas                              = (known after apply)
+      + resource_id                           = (known after apply)
+      + skip_final_snapshot                   = true
+      + snapshot_identifier                   = (known after apply)
+      + status                                = (known after apply)
+      + storage_encrypted                     = true
+      + storage_throughput                    = (known after apply)
+      + storage_type                          = "gp3"
+      + tags_all                              = {
+          + "ManagedBy" = "terraform"
+          + "Project"   = "school-wordpress"
+        }
+      + timezone                              = (known after apply)
+      + username                              = "wpadmin"
+      + vpc_security_group_ids                = (known after apply)
+    }
+
+  # module.rds.aws_db_subnet_group.school_db_subnet_group will be created
+  + resource "aws_db_subnet_group" "school_db_subnet_group" {
+      + arn                     = (known after apply)
+      + description             = "Managed by Terraform"
+      + id                      = (known after apply)
+      + name                    = "school-db-subnet-group"
+      + name_prefix             = (known after apply)
+      + subnet_ids              = (known after apply)
+      + supported_network_types = (known after apply)
+      + tags                    = {
+          + "Name" = "school-db-subnet-group"
+        }
+      + tags_all                = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "school-db-subnet-group"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                  = (known after apply)
+    }
+
+  # module.rds.aws_security_group.rds_sg will be created
+  + resource "aws_security_group" "rds_sg" {
+      + arn                    = (known after apply)
+      + description            = "Allow MySQL from EC2 only"
+      + egress                 = (known after apply)
+      + id                     = (known after apply)
+      + ingress                = [
+          + {
+              + cidr_blocks      = []
+              + description      = "MySQL from WordPress EC2"
+              + from_port        = 3306
+              + ipv6_cidr_blocks = []
+              + prefix_list_ids  = []
+              + protocol         = "tcp"
+              + security_groups  = (known after apply)
+              + self             = false
+              + to_port          = 3306
+            },
+        ]
+      + name                   = "rds-mysql-sg"
+      + name_prefix            = (known after apply)
+      + owner_id               = (known after apply)
+      + revoke_rules_on_delete = false
+      + tags                   = {
+          + "Name" = "rds-mysql-sg"
+        }
+      + tags_all               = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "rds-mysql-sg"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                 = (known after apply)
+    }
+
+  # module.vpc.aws_eip.nat will be created
+  + resource "aws_eip" "nat" {
+      + allocation_id        = (known after apply)
+      + arn                  = (known after apply)
+      + association_id       = (known after apply)
+      + carrier_ip           = (known after apply)
+      + customer_owned_ip    = (known after apply)
+      + domain               = "vpc"
+      + id                   = (known after apply)
+      + instance             = (known after apply)
+      + ipam_pool_id         = (known after apply)
+      + network_border_group = (known after apply)
+      + network_interface    = (known after apply)
+      + private_dns          = (known after apply)
+      + private_ip           = (known after apply)
+      + ptr_record           = (known after apply)
+      + public_dns           = (known after apply)
+      + public_ip            = (known after apply)
+      + public_ipv4_pool     = (known after apply)
+      + tags                 = {
+          + "Name" = "school-nat-eip"
+        }
+      + tags_all             = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "school-nat-eip"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc                  = (known after apply)
+    }
+
+  # module.vpc.aws_internet_gateway.igw will be created
+  + resource "aws_internet_gateway" "igw" {
+      + arn      = (known after apply)
+      + id       = (known after apply)
+      + owner_id = (known after apply)
+      + tags     = {
+          + "Name" = "school-igw"
+        }
+      + tags_all = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "school-igw"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id   = (known after apply)
+    }
+
+  # module.vpc.aws_nat_gateway.nat will be created
+  + resource "aws_nat_gateway" "nat" {
+      + allocation_id                      = (known after apply)
+      + association_id                     = (known after apply)
+      + connectivity_type                  = "public"
+      + id                                 = (known after apply)
+      + network_interface_id               = (known after apply)
+      + private_ip                         = (known after apply)
+      + public_ip                          = (known after apply)
+      + secondary_private_ip_address_count = (known after apply)
+      + secondary_private_ip_addresses     = (known after apply)
+      + subnet_id                          = (known after apply)
+      + tags                               = {
+          + "Name" = "school-nat"
+        }
+      + tags_all                           = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "school-nat"
+          + "Project"   = "school-wordpress"
+        }
+    }
+
+  # module.vpc.aws_network_acl.private_app will be created
+  + resource "aws_network_acl" "private_app" {
+      + arn        = (known after apply)
+      + egress     = [
+          + {
+              + action          = "allow"
+              + cidr_block      = "0.0.0.0/0"
+              + from_port       = 443
+              + protocol        = "tcp"
+              + rule_no         = 110
+              + to_port         = 443
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + action          = "allow"
+              + cidr_block      = "0.0.0.0/0"
+              + from_port       = 80
+              + protocol        = "tcp"
+              + rule_no         = 100
+              + to_port         = 80
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + action          = "allow"
+              + cidr_block      = "10.0.0.0/20"
+              + from_port       = 1024
+              + protocol        = "tcp"
+              + rule_no         = 130
+              + to_port         = 65535
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + action          = "allow"
+              + cidr_block      = "10.0.32.0/20"
+              + from_port       = 3306
+              + protocol        = "tcp"
+              + rule_no         = 120
+              + to_port         = 3306
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id         = (known after apply)
+      + ingress    = [
+          + {
+              + action          = "allow"
+              + cidr_block      = "0.0.0.0/0"
+              + from_port       = 1024
+              + protocol        = "tcp"
+              + rule_no         = 110
+              + to_port         = 65535
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + action          = "allow"
+              + cidr_block      = "10.0.0.0/20"
+              + from_port       = 80
+              + protocol        = "tcp"
+              + rule_no         = 100
+              + to_port         = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + owner_id   = (known after apply)
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Name" = "private-app-nacl"
+        }
+      + tags_all   = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "private-app-nacl"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # module.vpc.aws_network_acl.private_db will be created
+  + resource "aws_network_acl" "private_db" {
+      + arn        = (known after apply)
+      + egress     = [
+          + {
+              + action          = "allow"
+              + cidr_block      = "10.0.16.0/20"
+              + from_port       = 1024
+              + protocol        = "tcp"
+              + rule_no         = 100
+              + to_port         = 65535
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id         = (known after apply)
+      + ingress    = [
+          + {
+              + action          = "allow"
+              + cidr_block      = "10.0.16.0/20"
+              + from_port       = 3306
+              + protocol        = "tcp"
+              + rule_no         = 100
+              + to_port         = 3306
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + owner_id   = (known after apply)
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Name" = "private-db-nacl"
+        }
+      + tags_all   = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "private-db-nacl"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # module.vpc.aws_network_acl.public will be created
+  + resource "aws_network_acl" "public" {
+      + arn        = (known after apply)
+      + egress     = [
+          + {
+              + action          = "allow"
+              + cidr_block      = "0.0.0.0/0"
+              + from_port       = 1024
+              + protocol        = "tcp"
+              + rule_no         = 120
+              + to_port         = 65535
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + action          = "allow"
+              + cidr_block      = "0.0.0.0/0"
+              + from_port       = 443
+              + protocol        = "tcp"
+              + rule_no         = 110
+              + to_port         = 443
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + action          = "allow"
+              + cidr_block      = "0.0.0.0/0"
+              + from_port       = 80
+              + protocol        = "tcp"
+              + rule_no         = 100
+              + to_port         = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + id         = (known after apply)
+      + ingress    = [
+          + {
+              + action          = "allow"
+              + cidr_block      = "0.0.0.0/0"
+              + from_port       = 1024
+              + protocol        = "tcp"
+              + rule_no         = 120
+              + to_port         = 65535
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + action          = "allow"
+              + cidr_block      = "0.0.0.0/0"
+              + from_port       = 443
+              + protocol        = "tcp"
+              + rule_no         = 100
+              + to_port         = 443
+                # (1 unchanged attribute hidden)
+            },
+          + {
+              + action          = "allow"
+              + cidr_block      = "10.0.16.0/20"
+              + from_port       = 80
+              + protocol        = "tcp"
+              + rule_no         = 110
+              + to_port         = 80
+                # (1 unchanged attribute hidden)
+            },
+        ]
+      + owner_id   = (known after apply)
+      + subnet_ids = (known after apply)
+      + tags       = {
+          + "Name" = "public-nacl"
+        }
+      + tags_all   = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "public-nacl"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id     = (known after apply)
+    }
+
+  # module.vpc.aws_route_table.private_app will be created
+  + resource "aws_route_table" "private_app" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + nat_gateway_id             = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "private-app-rt"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "private-app-rt"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table.private_db will be created
+  + resource "aws_route_table" "private_db" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = (known after apply)
+      + tags             = {
+          + "Name" = "private-db-rt"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "private-db-rt"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table.public will be created
+  + resource "aws_route_table" "public" {
+      + arn              = (known after apply)
+      + id               = (known after apply)
+      + owner_id         = (known after apply)
+      + propagating_vgws = (known after apply)
+      + route            = [
+          + {
+              + cidr_block                 = "0.0.0.0/0"
+              + gateway_id                 = (known after apply)
+                # (11 unchanged attributes hidden)
+            },
+        ]
+      + tags             = {
+          + "Name" = "public-rt"
+        }
+      + tags_all         = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "public-rt"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id           = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private_app[0] will be created
+  + resource "aws_route_table_association" "private_app" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private_app[1] will be created
+  + resource "aws_route_table_association" "private_app" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private_db[0] will be created
+  + resource "aws_route_table_association" "private_db" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.private_db[1] will be created
+  + resource "aws_route_table_association" "private_db" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[0] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_route_table_association.public[1] will be created
+  + resource "aws_route_table_association" "public" {
+      + id             = (known after apply)
+      + route_table_id = (known after apply)
+      + subnet_id      = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private_app[0] will be created
+  + resource "aws_subnet" "private_app" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.16.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "private-app-ap-southeast-1a"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "private-app-ap-southeast-1a"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private_app[1] will be created
+  + resource "aws_subnet" "private_app" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.17.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "private-app-ap-southeast-1b"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "private-app-ap-southeast-1b"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private_db[0] will be created
+  + resource "aws_subnet" "private_db" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.32.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "private-db-ap-southeast-1a"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "private-db-ap-southeast-1a"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.private_db[1] will be created
+  + resource "aws_subnet" "private_db" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.33.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "private-db-ap-southeast-1b"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "private-db-ap-southeast-1b"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[0] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-1a"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.0.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "public-ap-southeast-1a"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "public-ap-southeast-1a"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_subnet.public[1] will be created
+  + resource "aws_subnet" "public" {
+      + arn                                            = (known after apply)
+      + assign_ipv6_address_on_creation                = false
+      + availability_zone                              = "ap-southeast-1b"
+      + availability_zone_id                           = (known after apply)
+      + cidr_block                                     = "10.0.1.0/24"
+      + enable_dns64                                   = false
+      + enable_resource_name_dns_a_record_on_launch    = false
+      + enable_resource_name_dns_aaaa_record_on_launch = false
+      + id                                             = (known after apply)
+      + ipv6_cidr_block_association_id                 = (known after apply)
+      + ipv6_native                                    = false
+      + map_public_ip_on_launch                        = false
+      + owner_id                                       = (known after apply)
+      + private_dns_hostname_type_on_launch            = (known after apply)
+      + tags                                           = {
+          + "Name" = "public-ap-southeast-1b"
+        }
+      + tags_all                                       = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "public-ap-southeast-1b"
+          + "Project"   = "school-wordpress"
+        }
+      + vpc_id                                         = (known after apply)
+    }
+
+  # module.vpc.aws_vpc.main will be created
+  + resource "aws_vpc" "main" {
+      + arn                                  = (known after apply)
+      + cidr_block                           = "10.0.0.0/16"
+      + default_network_acl_id               = (known after apply)
+      + default_route_table_id               = (known after apply)
+      + default_security_group_id            = (known after apply)
+      + dhcp_options_id                      = (known after apply)
+      + enable_dns_hostnames                 = true
+      + enable_dns_support                   = true
+      + enable_network_address_usage_metrics = (known after apply)
+      + id                                   = (known after apply)
+      + instance_tenancy                     = "default"
+      + ipv6_association_id                  = (known after apply)
+      + ipv6_cidr_block                      = (known after apply)
+      + ipv6_cidr_block_network_border_group = (known after apply)
+      + main_route_table_id                  = (known after apply)
+      + owner_id                             = (known after apply)
+      + tags                                 = {
+          + "Name" = "school-vpc"
+        }
+      + tags_all                             = {
+          + "ManagedBy" = "terraform"
+          + "Name"      = "school-vpc"
+          + "Project"   = "school-wordpress"
+        }
+    }
+
+Plan: 41 to add, 0 to change, 0 to destroy.
+
+Changes to Outputs:
+  + alb_dns_name               = (known after apply)
+  + asg_name                   = "wordpress-asg"
+  + cloudfront_distribution_id = (known after apply)
+  + cloudfront_domain_name     = (known after apply)
+  + db_secret_arn              = (known after apply)
+  + rds_address                = (known after apply)
+  + vpc_id                     = (known after apply)
+  + website_url                = "https://school.example.com"

@@ -1,18 +1,8 @@
 data "aws_region" "current" {}
 
-data "aws_vpc" "this" {
-  id = var.vpc_id
-}
-
-# Latest Amazon Linux 2023, used when image_id is null
-data "aws_ssm_parameter" "al2023" {
-  name = "/aws/service/ami-amazon-linux-latest/al2023-ami-kernel-default-x86_64"
-}
-
-
 resource "aws_launch_template" "wordpress" {
   name_prefix   = "wordpress-"
-  image_id      = coalesce(var.image_id, data.aws_ssm_parameter.al2023.value)
+  image_id      = var.image_id
   instance_type = var.instance_type
 
   user_data = base64encode(templatefile("${path.module}/user_data.sh", {
@@ -32,7 +22,6 @@ resource "aws_launch_template" "wordpress" {
     security_groups             = [aws_security_group.wordpress_ec2_sg.id]
   }
 
-  # IMDSv2 only
   metadata_options {
     http_tokens = "required"
   }
@@ -48,7 +37,6 @@ resource "aws_launch_template" "wordpress" {
     }
   }
 
-  # 1-minute CPU metrics for the alarms
   monitoring {
     enabled = true
   }
@@ -89,7 +77,7 @@ resource "aws_security_group" "wordpress_ec2_sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = [data.aws_vpc.this.cidr_block]
+    cidr_blocks = [var.vpc_cidr]
   }
 }
 
@@ -99,7 +87,6 @@ resource "aws_autoscaling_group" "wordpress_asg" {
 
   min_size = 1
   max_size = 4
-  # No desired_capacity: the alarms change it, and terraform apply would reset it
 
   vpc_zone_identifier = var.subnet_ids
   target_group_arns   = [var.target_group_arn]
